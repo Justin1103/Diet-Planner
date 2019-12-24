@@ -62,8 +62,6 @@ def create_meal(calories):
         else:
             ingredient_calories = calories
         amounts[ingredient.name] = [ingredient_calories, int((ingredient_calories * 100) / ingredient.calories)]
-    for name, values in amounts.items():
-        print("{} - {}g - {} kcal".format(name, values[1], values[0]))
     return amounts
 
 
@@ -71,13 +69,10 @@ def create_recipe(calories):
     amounts = create_meal(calories)
     names = [name for name, _ in amounts.items()]
     steps = randint(len(amounts), len(amounts) + 2)
-    print("Sposób przyrządzenia:")
+    instructions = []
     for step in range(steps):
         products_to_use = randint(1, 3)
         action = choice(actions[products_to_use - 1])
         instruction = action.format(*sample(names, products_to_use))
-        print("{}. {}".format(step + 1, instruction))
-    pass
-
-
-create_recipe(700)
+        instructions.append(instruction)
+    return amounts, instructions
